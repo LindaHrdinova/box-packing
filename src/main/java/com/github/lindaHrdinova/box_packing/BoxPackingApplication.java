@@ -3,46 +3,50 @@ package com.github.lindaHrdinova.box_packing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.github.lindaHrdinova.box_packing.BoxingSize.*;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class BoxPackingApplication {
 
-	// Functions for calculating GCD using Euclidean algorithm
-	public static int gcd(int a, int b) {
-		if (b == 0) {
-			return a;
-		}
-		return gcd(b, a % b);
-	}
+    // Functions for calculating GCD using Euclidean algorithm
+    public static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
 
-	// Functions to calculate LCM using GCD
-	public static int lcm(int a, int b) {
-		return (a * b) / gcd(a, b);
-	}
+    // Functions to calculate LCM using GCD
+    public static int lcm(int a, int b) {
+        return (a * b) / gcd(a, b);
+    }
 
-	public static void main(String[] args) {
-		System.out.println("Product size:");
-		Scanner scanner = new Scanner(System.in);
-		String oneBox = (scanner.nextLine());
-		System.out.println(oneBox);
+    public static void main(String[] args) {
+        System.out.println("Product size:");
+        Scanner scanner = new Scanner(System.in);
+        String allBoxes = (scanner.nextLine());
+        System.out.println(allBoxes);
 
+        String[] allSidesStringArray = allBoxes.split("\\s+");
+        if (allSidesStringArray.length % 3 != 0) {
+            System.err.println("Incorrect input.");
+        } else {
+            // String[] -> Double[] * 100 -> int[]
+            int[] allSidesIntArray = Arrays.stream(allSidesStringArray)
+                    .mapToDouble(Double::parseDouble)
+                    .map(side -> side * 100)
+                    .mapToInt(side -> (int) Math.round(side))
+                    .toArray();
 
-		String[] strArray = oneBox.split("\\s+");
-		BoxingSize box1 = new BoxingSize();
+            System.out.println("Input: " + Arrays.toString(allSidesIntArray) + ", number of elements: " + allSidesIntArray.length);
+        }
 
-		box1.setSideA((int)(Double.parseDouble(strArray[0])*100));
-		box1.setSideB((int)(Double.parseDouble(strArray[1])*100));
-		box1.setSideC((int)(Double.parseDouble(strArray[2])*100));
-
-		System.out.println("strana a: " + box1.getSideA());
-		System.out.println("strana b: " + box1.getSideB());
-		System.out.println("strana c: " + box1.getSideC());
-
+        /*
 		int sideAB = (lcm(box1.getSideA(), box1.getSideB()));
-		System.out.println("lcm of a and b is: " + sideAB);
 		double sideABC = ((double) (lcm(sideAB, box1.getSideC()))/100);
-		System.out.println("lcm of ab and c is: " + sideABC);
-	}
+		System.out.println("Box size: " + sideABC);*/
+    }
 
 }
