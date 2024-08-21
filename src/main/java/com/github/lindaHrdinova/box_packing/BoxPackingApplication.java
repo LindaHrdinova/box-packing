@@ -2,7 +2,6 @@ package com.github.lindaHrdinova.box_packing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.github.lindaHrdinova.box_packing.BoxingSize.*;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -31,7 +30,7 @@ public class BoxPackingApplication {
         System.out.println("Product size:");
         Scanner scanner = new Scanner(System.in);
         String allProducts = (scanner.nextLine());
-        System.out.println(allProducts);
+        //System.out.println(allProducts);
 
         double boxSize;
 
@@ -42,35 +41,34 @@ public class BoxPackingApplication {
         if (allSidesStringArray.length % 3 != 0 || allSidesStringArray.length == 0) {
             System.err.println("Incorrect input.");
         } else {
-            // String[] -> Double[] * 100 -> int[]
+            // String[] -> Double[] * 100 -> long[]
             long[] allSidesLongArray = Arrays.stream(allSidesStringArray)
                     .mapToDouble(Double::parseDouble)
                     .map(side -> side * 100)
                     .mapToLong(side -> (long) Math.round(side))
                     .toArray();
 
-            System.out.println("Input: " + Arrays.toString(allSidesLongArray) + ", number of elements: " + allSidesLongArray.length);
+            //System.out.println("Input: " + Arrays.toString(allSidesLongArray) + ", number of elements: " + allSidesLongArray.length);
 
             // LCM for all element array
             for (int i = 0; i < (allSidesLongArray.length - 1); i++) {
-                System.out.println("lcm(" + allSidesLongArray[i] + ", " + allSidesLongArray[i+1] + ") = " + lcm(allSidesLongArray[i], allSidesLongArray[i + 1]));
+                //System.out.println("lcm(" + allSidesLongArray[i] + ", " + allSidesLongArray[i + 1] + ") = " + lcm(allSidesLongArray[i], allSidesLongArray[i + 1]));
 
                 // Incorrect input range
-                if( ((allSidesLongArray[0] > 1000000000.00 ) || (allSidesLongArray[i + 1]) > 1000000000.00) || ((allSidesLongArray[0]) < 1) || ((allSidesLongArray[i + 1]) < 1)) {
+                if (((allSidesLongArray[0] > 1000000000.00) || (allSidesLongArray[i + 1]) > 1000000000.00) || ((allSidesLongArray[0]) < 1) || ((allSidesLongArray[i + 1]) < 1)) {
                     System.err.println("Incorrect input.");
-                }
+                } else {
 
-                boxSize = (double) lcm(allSidesLongArray[i], allSidesLongArray[i + 1]) / 100;
-                allSidesLongArray[i+1] = lcm(allSidesLongArray[i], allSidesLongArray[i + 1]);
+                    boxSize = (double) lcm(allSidesLongArray[i], allSidesLongArray[i + 1]) / 100;
+                    allSidesLongArray[i + 1] = lcm(allSidesLongArray[i], allSidesLongArray[i + 1]);
 
-
-                // Box size
-                if(boxSize > 10000000.00 || boxSize < 0.01) {
-                    System.err.println("The box is too big.");
-                    break;
-                }
-                else if (i == (allSidesLongArray.length - 2)) {
-                    System.out.println("Box size: " + df.format(boxSize));
+                    // Box size
+                    if (boxSize > 10000000.00 || boxSize < 0.01) {
+                        System.err.println("The box is too big.");
+                        break;
+                    } else if (i == (allSidesLongArray.length - 2)) {
+                        System.out.println("Box size: " + df.format(boxSize));
+                    }
                 }
             }
         }
