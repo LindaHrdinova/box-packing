@@ -31,17 +31,17 @@ public class BoxPackingApplication {
 		String[] strArray = oneBox.split("\\s+");
 		BoxingSize box1 = new BoxingSize();
 
-		box1.setSideA(Double.parseDouble(strArray[0]));
-		box1.setSideB(Double.parseDouble(strArray[1]));
-		box1.setSideC(Double.parseDouble(strArray[2]));
+		box1.setSideA((int)(Double.parseDouble(strArray[0])*100));
+		box1.setSideB((int)(Double.parseDouble(strArray[1])*100));
+		box1.setSideC((int)(Double.parseDouble(strArray[2])*100));
 
 		System.out.println("strana a: " + box1.getSideA());
 		System.out.println("strana b: " + box1.getSideB());
 		System.out.println("strana c: " + box1.getSideC());
 
-		double sideAB = (double) (lcm((int) box1.getSideA()*100, (int) box1.getSideB()*100))/100;
+		int sideAB = (lcm(box1.getSideA(), box1.getSideB()));
 		System.out.println("lcm of a and b is: " + sideAB);
-		double sideABC = (double) (lcm((int) sideAB*100, (int) box1.getSideC()*100))/100;
+		double sideABC = ((double) (lcm(sideAB, box1.getSideC()))/100);
 		System.out.println("lcm of ab and c is: " + sideABC);
 	}
 

@@ -1,34 +1,32 @@
 package com.github.lindaHrdinova.box_packing;
 
 public class BoxingSize {
-    private double sideA;
-    private double sideB;
-    private double sideC;
+    private int sideA;
+    private int sideB;
+    private int sideC;
     private double finalSize;
 
-    public double getSideA() {
+    public int getSideA() {
         return sideA;
     }
 
-    public String setSideA(double sideA) {
+    public void setSideA(int sideA) {
         this.sideA = sideA;
-        return null;
     }
 
-    public double getSideB() {
+    public int getSideB() {
         return sideB;
-
     }
 
-    public void setSideB(double sideB) {
+    public void setSideB(int sideB) {
         this.sideB = sideB;
     }
 
-    public double getSideC() {
+    public int getSideC() {
         return sideC;
     }
 
-    public void setSideC(double sideC) {
+    public void setSideC(int sideC) {
         this.sideC = sideC;
     }
 
